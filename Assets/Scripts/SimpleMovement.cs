@@ -8,6 +8,8 @@ public class SimpleMovement : MonoBehaviour
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
+    Animator animator;
+    SpriteRenderer spriteRenderer;
 
     [Header("Input")]
     public Vector2 inputDirection;
@@ -16,6 +18,8 @@ public class SimpleMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -30,9 +34,15 @@ public class SimpleMovement : MonoBehaviour
                 moveDirection.y = jumpSpeed;
                 inputJump = false;
             }
+            else
+            {
+                moveDirection.y = 0f;
+            }
 
         }
-        moveDirection.y -= gravity * Time.deltaTime;
+        else
+            moveDirection.y -= gravity * Time.deltaTime;
+
         controller.Move(moveDirection * Time.deltaTime);
     }
 }
