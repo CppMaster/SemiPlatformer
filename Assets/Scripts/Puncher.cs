@@ -8,6 +8,7 @@ public class Puncher : Character
     public LayerMask punchLayer;
     public BoxCollider punchCollider;
     public float punchFrequency = 1f;
+    public float punchPower = 0.5f;
 
     protected float punchTimeLeft = 0f;
     protected HashSet<Punchable> punchables;
@@ -43,7 +44,7 @@ public class Puncher : Character
 
         if (punchCollider != null)
         {
-            Vector3 worldPos = transform.position + Vector3.Scale(transform.localScale, punchCollider.center);
+            Vector3 worldPos = transform.position + Vector3.Scale(transform.localScale, punchCollider.center * (IsFacingRight() ? 1f : -1f));
             Collider[] punchedColliders = Physics.OverlapBox(worldPos, punchCollider.size * 0.5f, Quaternion.identity, punchLayer);
 
             punchables.Clear();
