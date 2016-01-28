@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : Punchable
 {
-    SimpleMovement movement;
-    Animator animator;
-    SpriteRenderer spriteRenderer;
+    protected SimpleMovement movement;
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
 
-    void Start()
+    protected virtual void Start()
     {
         movement = GetComponent<SimpleMovement>();
         animator = GetComponent<Animator>();
@@ -14,7 +14,7 @@ public class Character : MonoBehaviour
     }
 
 
-    void Update()
+    protected virtual void Update()
     {
         if (animator != null)
         {

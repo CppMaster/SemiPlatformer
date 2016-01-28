@@ -8,18 +8,15 @@ public class SimpleMovement : MonoBehaviour
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
-    Animator animator;
-    SpriteRenderer spriteRenderer;
 
     [Header("Input")]
     public Vector2 inputDirection;
     public bool inputJump = false;
+    bool isGrounded = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -45,4 +42,15 @@ public class SimpleMovement : MonoBehaviour
 
         controller.Move(moveDirection * Time.deltaTime);
     }
+
+    public bool IsGrounded()
+    {
+        return Mathf.Abs(moveDirection.y) < 0.5f;
+    }
+
+    public bool IsMoving()
+    {
+        return Mathf.Abs(moveDirection.x) > 0f;
+    }
+
 }
