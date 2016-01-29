@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 
-public class Punchable : MonoBehaviour
+public class Destroyable : MapObject
 {
 
     public float maxHP = 100f;
     float currentHP = 100f;
 
-    public virtual void Punch(Puncher puncher)
+    protected virtual void Start()
+    {
+        currentHP = maxHP;
+    }
+
+    public virtual void Damage(Puncher puncher)
     {
         currentHP -= puncher.punchDamage;
         if(currentHP < 0f)

@@ -12,7 +12,6 @@ public class SimpleMovement : MonoBehaviour
     [Header("Input")]
     public Vector2 inputDirection;
     public bool inputJump = false;
-    bool isGrounded = false;
 
     void Start()
     {

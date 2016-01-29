@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class Character : Punchable
+public class Character : Destroyable
 {
     protected SimpleMovement movement;
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
 
-    protected virtual void Start()
+    protected override void Start()
     {
         movement = GetComponent<SimpleMovement>();
         animator = GetComponent<Animator>();
@@ -29,9 +29,9 @@ public class Character : Punchable
         }
     }
 
-    public override void Punch(Puncher puncher)
+    public override void Damage(Puncher puncher)
     {
-        base.Punch(puncher);
+        base.Damage(puncher);
         GetComponent<CharacterController>().Move(Vector3.right * puncher.punchPower * (puncher.IsFacingRight() ? 1f : -1f));
     }
 

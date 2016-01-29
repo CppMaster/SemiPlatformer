@@ -12,12 +12,12 @@ public class Puncher : Character
     public float punchDamage = 20f;
 
     protected float punchTimeLeft = 0f;
-    protected HashSet<Punchable> punchables;
+    protected HashSet<Destroyable> punchables;
 
     protected override void Start()
     {
         base.Start();
-        punchables = new HashSet<Punchable>();
+        punchables = new HashSet<Destroyable>();
     }
 
     protected override void Update()
@@ -37,37 +37,67 @@ public class Puncher : Character
 
     public virtual bool CanPunch()
     {
-        return punchTimeLeft <= 0f && movement.IsGrounded() && !movement.IsMoving();
+        return IsPunchRefreshed() && IsGrounded() && !movement.IsMoving();
+    }
+
+    public virtual bool IsGrounded()
+    {
+        return movement.IsGrounded();
+    }
+
+    public bool IsPunchRefreshed()
+    {
+        return punchTimeLeft <= 0f;
     }
 
     public virtual void Punch()
     {
 
-        if (punchCollider != null)
-        {
-            Vector3 worldPos = transform.position + Vector3.Scale(transform.localScale, punchCollider.center * (IsFacingRight() ? 1f : -1f));
-            Collider[] punchedColliders = Physics.OverlapBox(worldPos, punchCollider.size * 0.5f, Quaternion.identity, punchLayer);
+        DetectPunchCollisions();
+        PunchWithoutDetection();
+    }
 
-            punchables.Clear();
-
-            foreach (Collider punchedCollider in punchedColliders)
-            {
-                Punchable punchable = punchedCollider.GetComponent<Punchable>();
-                if (punchable == null) continue;
-                punchables.Add(punchable);
-            }
-
-            ExecutePunch();
-        }
+    public virtual void PunchWithoutDetection()
+    {
+        ExecutePunch();
+        punchables.Clear();
 
         punchTimeLeft = 1f;
     }
 
+    public bool DetectPunchCollisions()
+    {
+        punchables.Clear();
+
+        if (punchCollider == null) return false;
+
+        Collider[] punchedColliders = Physics.OverlapBox(GlobalPunchPos(), punchCollider.size * 0.5f, Quaternion.identity, punchLayer);
+
+        foreach (Collider punchedCollider in punchedColliders)
+        {
+            Destroyable punchable = punchedCollider.GetComponent<Destroyable>();
+            if (punchable == null) continue;
+            punchables.Add(punchable);
+        }
+
+        return HasPunchCollisions();
+    }
+
+    public bool HasPunchCollisions()
+    {
+        return punchables.Count > 0;
+    }
+
+    public Vector3 GlobalPunchPos()
+    {
+        return transform.position + Vector3.Scale(transform.localScale, punchCollider.center * (IsFacingRight() ? 1f : -1f));
+    }
+
     protected virtual void ExecutePunch()
     {
-        foreach (Punchable punchable in punchables)
+        foreach (Destroyable punchable in punchables)
         {
-            punchable.Punch(this);
+            punchable.Damage(this);
         }
     }
 }
