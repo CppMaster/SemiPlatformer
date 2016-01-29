@@ -9,6 +9,7 @@ public class Puncher : Character
     public BoxCollider punchCollider;
     public float punchFrequency = 1f;
     public float punchPower = 0.5f;
+    public float punchDamage = 20f;
 
     protected float punchTimeLeft = 0f;
     protected HashSet<Punchable> punchables;

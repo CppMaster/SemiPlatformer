@@ -31,6 +31,7 @@ public class Character : Punchable
 
     public override void Punch(Puncher puncher)
     {
+        base.Punch(puncher);
         GetComponent<CharacterController>().Move(Vector3.right * puncher.punchPower * (puncher.IsFacingRight() ? 1f : -1f));
     }
 
