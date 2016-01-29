@@ -8,14 +8,18 @@ public class Character : Destroyable
 
     protected override void Start()
     {
+        base.Start();
+
         movement = GetComponent<SimpleMovement>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (animator != null)
         {
             animator.SetBool("IsMoving", movement.inputDirection.magnitude > 0.0f);

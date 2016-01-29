@@ -1,22 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PuncherAI : EnemyAI {
+public class PuncherAI : MoveAI {
 
     Puncher puncher;
-    SimpleMovement movement;
 
     public Destroyable player;
     public Destroyable shaman;
-
-    public float heightDifferenceToJump = 0.5f;
-    public float distanceToAttackPlayer = 5f; 
 
     protected override void Start()
     {
         base.Start();
         puncher = GetComponent<Puncher>();
-        movement = GetComponent<SimpleMovement>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Destroyable>();
         shaman = GameObject.FindGameObjectWithTag("Shaman").GetComponent<Destroyable>();
     }
@@ -24,7 +19,6 @@ public class PuncherAI : EnemyAI {
     protected override void Update()
     {
         base.Update();
-        movement.inputDirection = Vector2.zero;
 
         target = IsAttackingPlayer() && player != null ? player : shaman;
 
@@ -38,16 +32,7 @@ public class PuncherAI : EnemyAI {
         }
         else if(!puncher.HasPunchCollisions())
         {
-            Vector3 posDiff = target.GetPosition() - puncher.GlobalPunchPos();
-
-            movement.inputDirection.x = Mathf.Sign(posDiff.x);
-            movement.inputDirection.y = Mathf.Sign(posDiff.z);
-
-            if(posDiff.y > heightDifferenceToJump)
-            {
-                movement.inputJump = true;
-            }
-
+            Move();
         }
 
     }
@@ -57,5 +42,10 @@ public class PuncherAI : EnemyAI {
         if (player == null) return false;
         Vector3 posDiff = player.GetPosition() - puncher.GetPosition();
         return new Vector2(posDiff.x, posDiff.z).magnitude < distanceToAttackPlayer;
+    }
+
+    protected override Vector3 GetPosDiff()
+    {
+        return target.GetPosition() - puncher.GlobalPunchPos();
     }
 }
