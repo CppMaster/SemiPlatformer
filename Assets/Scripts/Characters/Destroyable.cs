@@ -5,6 +5,7 @@ public class Destroyable : MapObject
 
     public float maxHP = 100f;
     protected float currentHP = 100f;
+	public GameObject progressHp;
 
     protected virtual void Start()
     {
