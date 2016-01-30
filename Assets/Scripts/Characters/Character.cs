@@ -8,6 +8,8 @@ public class Character : Lootable
 
     protected override void Start()
     {
+        base.Start();
+
         movement = GetComponent<SimpleMovement>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
