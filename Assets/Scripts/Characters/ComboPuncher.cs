@@ -35,7 +35,10 @@ public class ComboPuncher : Puncher {
         }
 
         if (animator != null)
+        {
             animator.SetInteger("CurrentPunch", currentNode);
+            animator.SetBool("IsBlocking", isBlocking);
+        }
     }
 
     int GetNextNode(int node, int edge)
