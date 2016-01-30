@@ -100,4 +100,9 @@ public class Puncher : Character
             punchable.Damage(this);
         }
     }
+
+    public virtual float GetDamage()
+    {
+        return punchDamage;
+    }
 }

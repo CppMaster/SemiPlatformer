@@ -13,7 +13,7 @@ public class SimpleMovement : MonoBehaviour
     public Vector2 inputDirection;
     public bool inputJump = false;
 
-    void Start()
+    protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
     }
@@ -21,7 +21,7 @@ public class SimpleMovement : MonoBehaviour
     void Update()
     {
 
-        moveDirection = new Vector3(inputDirection.x * speed.x, moveDirection.y, inputDirection.y * speed.y);
+        moveDirection = new Vector3(inputDirection.x * GetSpeed().x, moveDirection.y, inputDirection.y * GetSpeed().y);
         if (controller.isGrounded)
         {
 
@@ -50,6 +50,11 @@ public class SimpleMovement : MonoBehaviour
     public bool IsMoving()
     {
         return Mathf.Abs(moveDirection.x) > 0f;
+    }
+
+    public virtual Vector2 GetSpeed()
+    {
+        return speed;
     }
 
 }

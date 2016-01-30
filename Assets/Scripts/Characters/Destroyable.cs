@@ -4,7 +4,7 @@ public class Destroyable : MapObject
 {
 
     public float maxHP = 100f;
-    float currentHP = 100f;
+    protected float currentHP = 100f;
 
     protected virtual void Start()
     {

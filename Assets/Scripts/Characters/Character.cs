@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Character : Destroyable
+public class Character : Lootable
 {
     protected SimpleMovement movement;
     protected Animator animator;
