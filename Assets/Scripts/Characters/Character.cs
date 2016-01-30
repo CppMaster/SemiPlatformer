@@ -16,8 +16,10 @@ public class Character : Lootable
     }
 
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (animator != null)
         {
             animator.SetBool("IsMoving", movement.inputDirection.magnitude > 0.0f);

@@ -14,10 +14,10 @@ public class Destroyable : MapObject
 
     public virtual void Damage(Puncher puncher)
     {
-		setMyHp (GetPercentHP());
+		
         currentHP -= puncher.punchDamage;
 
-        if(currentHP < 0f)
+        if(currentHP <= 0f)
         {
             Die();
         }
@@ -35,8 +35,14 @@ public class Destroyable : MapObject
 
 	public void setMyHp(float myHp)
 	{
+        if (progressBarHp == null) return;
 		progressBarHp.transform.localScale = new Vector3 (myHp, progressBarHp.transform.localScale.y, progressBarHp.transform.localScale.z);
 	}
+
+    protected virtual void Update()
+    {
+        setMyHp(GetPercentHP());
+    }
 
 }
 	
