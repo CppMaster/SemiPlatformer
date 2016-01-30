@@ -19,7 +19,9 @@ public class Destroyable : MapObject
 
         if(currentHP <= 0f)
         {
-            Die();
+			currentHP = 0f;
+			setMyHp(GetPercentHP());
+			Die();
         }
     }
 
