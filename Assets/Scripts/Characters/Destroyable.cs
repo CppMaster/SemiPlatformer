@@ -15,7 +15,7 @@ public class Destroyable : MapObject
     public virtual void Damage(Puncher puncher)
     {
 		
-        currentHP -= puncher.punchDamage;
+        currentHP -= puncher.GetDamage();
 
         if(currentHP <= 0f)
         {

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 public class Puncher : Character
 {
+    [Header("Punch")]
     [HideInInspector]
-    public bool isPunching = false;
+    public int punchIndex = -1;
     public LayerMask punchLayer;
     public BoxCollider punchCollider;
-    public float punchFrequency = 1f;
+    public float punchCooldown = 1f;
     public float punchPower = 0.5f;
-    public float punchDamage = 20f;
+    [SerializeField]
+    float punchDamage = 20f;
 
     protected float punchTimeLeft = 0f;
     protected HashSet<Destroyable> punchables;
@@ -24,14 +26,15 @@ public class Puncher : Character
     {
         base.Update();
 
-        punchTimeLeft -= Time.deltaTime * punchFrequency;
+        punchTimeLeft -= Time.deltaTime;
 
-        isPunching &= CanPunch();
+        if (!CanPunch())
+            punchIndex = -1;
 
         if (animator != null)
-            animator.SetBool("IsPunching", isPunching);
+            animator.SetBool("IsPunching", punchIndex >= 0);
 
-        if (isPunching)
+        if (punchIndex >= 0)
             Punch();
     }
 
@@ -62,7 +65,7 @@ public class Puncher : Character
         ExecutePunch();
         punchables.Clear();
 
-        punchTimeLeft = 1f;
+        punchTimeLeft = punchCooldown;
     }
 
     public bool DetectPunchCollisions()
@@ -104,5 +107,10 @@ public class Puncher : Character
     public virtual float GetDamage()
     {
         return punchDamage;
+    }
+
+    protected virtual float GetPunchCooldown()
+    {
+        return punchCooldown;
     }
 }

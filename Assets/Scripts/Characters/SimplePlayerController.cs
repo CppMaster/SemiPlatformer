@@ -13,13 +13,17 @@ public class SimplePlayerController : MonoBehaviour
 
     void Update()
     {
-        player.isPunching = false;
+        player.punchIndex = -1;
         player.isBlocking = false;
         movement.inputDirection = Vector2.zero;
         movement.inputJump = false;
 
-        player.isPunching = Input.GetButton("Fire1");
-        if (!player.isPunching)
+        if (Input.GetButtonDown("Fire1"))
+            player.punchIndex = 0;
+        else if(Input.GetButtonDown("Fire2"))
+            player.punchIndex = 1;
+
+        if (player.punchIndex == -1)
         {
             player.isBlocking = Input.GetButton("Block");
             if (!player.isBlocking)

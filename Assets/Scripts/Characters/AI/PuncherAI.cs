@@ -34,7 +34,7 @@ public class PuncherAI : EnemyAI {
         bool shouldPunch = puncher.DetectPunchCollisions() && puncher.IsPunchRefreshed() && puncher.IsGrounded();
         if (shouldPunch)
         {
-            puncher.isPunching = true;
+            puncher.punchIndex = 0;
         }
         else if(!puncher.HasPunchCollisions())
         {
