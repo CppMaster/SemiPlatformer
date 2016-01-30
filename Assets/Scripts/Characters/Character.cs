@@ -44,4 +44,20 @@ public class Character : Lootable
         return !spriteRenderer.flipX;
     }
 
+    public override void Die()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Dead");
+        }
+        else
+        {
+            Destroy();
+        }
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 }

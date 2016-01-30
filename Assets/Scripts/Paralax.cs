@@ -20,6 +20,7 @@ public class Paralax : MonoBehaviour {
 
 	void Update ()
     {
+        if (player == null) return;
 	    for(int a = 0; a < layers.Length; ++a)
         {
             layers[a].position = Vector3.Lerp(layers[a].position, normalPositions[a] + Vector3.right * player.position.x * moveRatio[a], lerpSpeed * Time.deltaTime);
