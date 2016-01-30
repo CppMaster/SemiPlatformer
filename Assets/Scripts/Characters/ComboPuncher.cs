@@ -26,10 +26,11 @@ public class ComboPuncher : Puncher {
         if (timeToNextMove > 0f)
         {
             timeToNextMove -= Time.deltaTime;
-            if (timeToNextMove <= 0f)
+            if (timeToNextMove <= 0f || isBlocking)
             {
                 punchTimeLeft = comboNodes[currentNode].punchCooldown;
                 currentNode = 1;
+                timeToNextMove = 0f;
             }
         }
 

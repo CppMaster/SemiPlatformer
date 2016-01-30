@@ -17,7 +17,9 @@ public class Destroyable : MapObject
 		
         currentHP -= puncher.GetDamage();
 
-        if(currentHP <= 0f)
+        setMyHp(GetPercentHP());
+
+        if (currentHP <= 0f)
         {
 			currentHP = 0f;
 			setMyHp(GetPercentHP());
@@ -38,6 +40,7 @@ public class Destroyable : MapObject
 	public void setMyHp(float myHp)
 	{
         if (progressBarHp == null) return;
+        myHp = Mathf.Clamp01(myHp);
 		progressBarHp.transform.localScale = new Vector3 (myHp, progressBarHp.transform.localScale.y, progressBarHp.transform.localScale.z);
 	}
 
