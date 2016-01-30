@@ -25,4 +25,9 @@ public class Destroyable : MapObject
         Destroy(gameObject);
     }
 
+    public float GetPercentHP()
+    {
+        return currentHP / maxHP;
+    }
+
 }
