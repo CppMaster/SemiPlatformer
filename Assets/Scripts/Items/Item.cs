@@ -7,7 +7,7 @@ public class Item : MapObject {
     {
         HP,
         Speed,
-        Power
+        Power,
     }
 
     public Type type;
