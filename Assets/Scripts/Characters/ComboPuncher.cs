@@ -33,8 +33,8 @@ public class ComboPuncher : Puncher {
             }
         }
 
-        //if (animator != null)
-        //    animator.SetInteger("currentPunch", currentNode);
+        if (animator != null)
+            animator.SetInteger("CurrentPunch", currentNode);
     }
 
     int GetNextNode(int node, int edge)
