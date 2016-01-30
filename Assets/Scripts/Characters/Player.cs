@@ -4,6 +4,9 @@ using System.Collections;
 
 public class Player : Puncher {
 
+    [HideInInspector]
+    public bool isBlocking = false;
+
 	float speedTimeLeft = 0f;
 	float powerTimeLeft = 0f;
 
@@ -57,5 +60,11 @@ public class Player : Puncher {
     public float GetSpeedMultiplier()
     {
         return speedTimeLeft > 0f ? speedMultiplier : 1f;
+    }
+
+    public override void Damage(Puncher puncher)
+    {
+        if (isBlocking && IsFacingRight() != puncher.IsFacingRight()) return;
+        base.Damage(puncher);
     }
 }

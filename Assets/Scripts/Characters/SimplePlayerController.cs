@@ -3,24 +3,31 @@
 public class SimplePlayerController : MonoBehaviour
 {
     SimpleMovement movement;
-    Puncher character;
+    Player player;
 
     void Start()
     {
         movement = GetComponent<SimpleMovement>();
-        character = GetComponent<Puncher>();
+        player = GetComponent<Player>();
     }
 
     void Update()
     {
-        character.isPunching = Input.GetButton("Fire1");
-        if (character.isPunching)
+        player.isPunching = false;
+        player.isBlocking = false;
+        movement.inputDirection = Vector2.zero;
+        movement.inputJump = false;
+
+        player.isPunching = Input.GetButton("Fire1");
+        if (!player.isPunching)
         {
-            movement.inputDirection = Vector2.zero;
-            movement.inputJump = false;
+            player.isBlocking = Input.GetButton("Block");
+            if (!player.isBlocking)
+            {
+                movement.inputJump = Input.GetButton("Jump");
+                movement.inputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            }
         }
-        movement.inputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        movement.inputJump = Input.GetButton("Jump");
     }
 
 }

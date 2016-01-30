@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Puncher : Character
 {
-
+    [HideInInspector]
     public bool isPunching = false;
     public LayerMask punchLayer;
     public BoxCollider punchCollider;
