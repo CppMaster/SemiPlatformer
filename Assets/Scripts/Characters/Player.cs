@@ -13,6 +13,13 @@ public class Player : Puncher {
     public float powerTime = 5f;
     public float hpAdd = 50f;
 
+    public static Player instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
     protected override void Update()
     {
         base.Update();

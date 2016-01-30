@@ -17,8 +17,8 @@ public class PuncherAI : EnemyAI {
         base.Start();
         puncher = GetComponent<Puncher>();
         movement = GetComponent<SimpleMovement>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Destroyable>();
-        shaman = GameObject.FindGameObjectWithTag("Shaman").GetComponent<Destroyable>();
+        player = Player.instance;
+        shaman = Shaman.instance;
     }
 
     protected override void Update()
