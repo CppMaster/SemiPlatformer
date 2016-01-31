@@ -57,4 +57,13 @@ public class SimpleMovement : MonoBehaviour
         return speed;
     }
 
+    public int GetVerticalDirection()
+    {
+        if (IsGrounded())
+            return 0;
+        if (moveDirection.y > 0f)
+            return 1;
+        return -1;
+    }
+
 }
