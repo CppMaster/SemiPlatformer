@@ -47,9 +47,6 @@ public class Character : Lootable
     public override void Die()
     {
 
-        if (lootItems.Length > 0)
-            Instantiate(lootItems[Random.Range(0, lootItems.Length)], transform.position, Quaternion.identity);
-
         if (animator != null)
         {
             animator.SetTrigger("Dead");
