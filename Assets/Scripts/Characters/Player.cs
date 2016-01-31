@@ -26,6 +26,9 @@ public class Player : ComboPuncher {
 
 		speedTimeLeft -= Time.deltaTime;
 		powerTimeLeft -= Time.deltaTime;
+
+        if (animator != null)
+            animator.SetInteger("VerticalDirection", movement.GetVerticalDirection());
 	}
 
 	void OnTriggerEnter(Collider col)
