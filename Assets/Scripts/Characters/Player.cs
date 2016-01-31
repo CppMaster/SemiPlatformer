@@ -18,6 +18,8 @@ public class Player : ComboPuncher {
 	void Awake()
 	{
 		instance = this;
+
+		Time.timeScale = 1f;
 	}
 
 	protected override void Update()

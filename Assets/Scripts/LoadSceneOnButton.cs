@@ -14,5 +14,8 @@ public class LoadSceneOnButton : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space))
             Application.LoadLevel(sceneName);
+
+		if (Input.GetButtonDown( "Fire2"))
+			Application.LoadLevel(sceneName);
     }
 }
